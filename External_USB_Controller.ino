@@ -75,10 +75,10 @@ ENCODER_CREATE(back, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_CAPS_LOCK, KEY_ESC, KEY_N
 ENCODER_DEF_PIN_MAP(layer,KEY_NONE,KEY_NONE,2,1,0);
 ENCODER_CREATE(layer, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_LEFT_SHIFT, 'l', KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 
-ENCODER_DEF_PIN_MAP(snap,9,10,12,13,14);
+ENCODER_DEF_PIN_MAP(snap,KEY_NONE,KEY_NONE,12,13,14);
 ENCODER_CREATE(snap, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_LEFT_CTRL, 's', KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 
-ENCODER_DEF_PIN_MAP(select,3,4,5,6,7);
+ENCODER_DEF_PIN_MAP(select,KEY_NONE,KEY_NONE,5,6,7);
 ENCODER_CREATE(select, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_NONE, KEY_RETURN, KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 /***********************************************/
 
@@ -93,15 +93,15 @@ BUTTON_CREATE(v4b_4,13 ,'v',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 /***************************************************
  * setup
  */
-void setup() {
+void setup(){
   // declare led pin to be an output:
   pinMode(led, OUTPUT);
   digitalWrite(led,0); //Turn on the LED to indicate that we are running code, not bootloader
 
-//  ENCODER_SET_GPIO(back);
-//  ENCODER_SET_GPIO(layer);
-//  ENCODER_SET_GPIO(snap);
-//  ENCODER_SET_GPIO(select);
+  ENCODER_SET_GPIO(back);
+  ENCODER_SET_GPIO(layer);
+  ENCODER_SET_GPIO(snap);
+  ENCODER_SET_GPIO(select);
   
   BUTTON_SET_GPIO(v4b_1);
   BUTTON_SET_GPIO(v4b_2);
@@ -131,10 +131,10 @@ void setup() {
  * loop
  */
 void loop() {  
-//  ENCODER_PROCESS(back);
-//  ENCODER_PROCESS(layer);
-//  ENCODER_PROCESS(snap);
-//  ENCODER_PROCESS(select);
+  ENCODER_PROCESS(back);
+  ENCODER_PROCESS(layer);
+  ENCODER_PROCESS(snap);
+  ENCODER_PROCESS(select);
   
   BUTTON_PROCESS(v4b_1);
   BUTTON_PROCESS(v4b_2);
