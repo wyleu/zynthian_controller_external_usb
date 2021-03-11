@@ -55,7 +55,7 @@ byte ccw = 2;
 #define KEY_PRESS(k_p) { if(k_p) Keyboard.press(k_p); }while(0)      
 
 /* If Caps lock, repress to make sure it's "released" for for other keys */
-#define COMBO_KEY(key,mod) { KEY_PRESS(mod); KEY_PRESS(key); SerialUSB.print(mod);SerialUSB.println(key); Keyboard.releaseAll(); if(mod == KEY_CAPS_LOCK){ KEY_PRESS(mod); Keyboard.releaseAll(); } }while(0)
+#define COMBO_KEY(key,mod) { KEY_PRESS(mod); KEY_PRESS(key); Keyboard.releaseAll(); if(mod == KEY_CAPS_LOCK){ KEY_PRESS(mod); Keyboard.releaseAll(); } }while(0)
 
 
 /******************************************************************
@@ -137,7 +137,7 @@ void press_process(KeyMap_t *k_map, int sw, int * sw_pending, boolean * long_pre
     
   /********** Long press, does not require release ***************/
   if( *sw_pending > sw_long && !*long_press ) {
-    SerialUSB.println("Long Press");
+    //SerialUSB.println("Long Press");
     COMBO_KEY(k_map->key_switch,k_map->mod_long);
     *long_press = true;
   }
@@ -149,11 +149,11 @@ void press_process(KeyMap_t *k_map, int sw, int * sw_pending, boolean * long_pre
       *long_press = false; //Already sent the keys, just clear the event
     }else if ( *sw_pending > sw_bold ) {
       /************ Bold Press ************/
-      SerialUSB.println("Bold Press");
+      //SerialUSB.println("Bold Press");
     COMBO_KEY(k_map->key_switch,k_map->mod_bold);
     }else if ( *sw_pending > sw_short) {
       /*********** Short Press ************/
-      SerialUSB.println("Short Press");
+      //SerialUSB.println("Short Press");
     COMBO_KEY(k_map->key_switch,k_map->mod_short);
     }
   }

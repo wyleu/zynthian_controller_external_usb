@@ -45,6 +45,26 @@
   Btn 2: PA14 x,shift,ctrl
   Btn 3: PA13 c,shift,ctrl
   Btn 4: PB0  v,shift,ctrl
+
+  | Pin on MKRZERO | Control | Device | Comments |
+|---|---|---|---|
+| D0 | Encoder | Channel | - |
+| D1 | Encoder | Channel | - |
+| D2 | Switch | Channel | - |
+| D3 | Encoder | Back | - |
+| D4 | Encoder | Back | - |
+| D5 | Switch | Back | - |
+| D11 | Encoder | L/S | - |
+| D6 | Encoder | L/S | Swapped with pin 10 for interrupt for encoder |
+| D9 | Switch | L/S | - |
+| D7 | Encoder | Select | - |
+| D8 | Encoder | Select | - |
+| D10| Switch | Select | Swapped with pin 6 for interrupt for encoder |
+|Front panel switches|-|-|-|
+| D13 | Push Button  | 1 | - |
+| D12 | Push Button  | 2 | - |
+| D20 | Push Button  | 3 | - |
+| D21 | Push Button  | 4 | - |
   
 */
 #include <SimpleRotary.h>
@@ -81,9 +101,8 @@ ENCODER_DEF_PIN_MAP(select,KEY_NONE,KEY_NONE,10,7,8);
 ENCODER_CREATE(select, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_NONE, KEY_RETURN, KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 /***********************************************/
 
-/***********************************************
- * Create the button instances and maps
- */
+/***********************************************/
+
 BUTTON_CREATE(v4b_1,13,'z',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 BUTTON_CREATE(v4b_2,12,'x',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 BUTTON_CREATE(v4b_3,20,'c',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
@@ -95,8 +114,8 @@ BUTTON_CREATE(v4b_4,21 ,'v',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 void setup(){
   // declare led pin to be an output:
   pinMode(led, OUTPUT);
-  SerialUSB.begin(115200);  //BAUD RATE
-  while (!SerialUSB) {}
+  //SerialUSB.begin(115200);  //BAUD RATE
+  //while (!SerialUSB) {}
   digitalWrite(led,0); //Turn on the LED to indicate that we are running code, not bootloader
 
   ENCODER_SET_GPIO(back);
@@ -116,7 +135,7 @@ void setup(){
     cw = 2;
     ccw = 1;
   }
-  SerialUSB.println("hello from setup");
+  //SerialUSB.println("hello from setup");
   // wait for 2 second before starting keyboard.
   delay(2000);
 
