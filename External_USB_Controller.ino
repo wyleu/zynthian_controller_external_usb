@@ -74,21 +74,20 @@ ENCODER_CREATE(back, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_CAPS_LOCK, KEY_ESC, KEY_N
 
 ENCODER_DEF_PIN_MAP(layer,KEY_NONE,KEY_NONE,2,1,0);
 ENCODER_CREATE(layer, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_LEFT_SHIFT, 'l', KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
-
-ENCODER_DEF_PIN_MAP(snap,KEY_NONE,KEY_NONE,12,13,14);
+ENCODER_DEF_PIN_MAP(snap,KEY_NONE,KEY_NONE,9,6,11);
 ENCODER_CREATE(snap, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_LEFT_CTRL, 's', KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 
-ENCODER_DEF_PIN_MAP(select,KEY_NONE,KEY_NONE,5,6,7);
+ENCODER_DEF_PIN_MAP(select,KEY_NONE,KEY_NONE,10,7,8);
 ENCODER_CREATE(select, KEY_DOWN_ARROW, KEY_UP_ARROW, KEY_NONE, KEY_RETURN, KEY_NONE, KEY_LEFT_SHIFT, KEY_LEFT_CTRL );
 /***********************************************/
 
 /***********************************************
  * Create the button instances and maps
  */
-BUTTON_CREATE(v4b_1,21,'z',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
-BUTTON_CREATE(v4b_2,20,'x',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
-BUTTON_CREATE(v4b_3,12,'c',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
-BUTTON_CREATE(v4b_4,13 ,'v',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
+BUTTON_CREATE(v4b_1,13,'z',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
+BUTTON_CREATE(v4b_2,12,'x',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
+BUTTON_CREATE(v4b_3,20,'c',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
+BUTTON_CREATE(v4b_4,21 ,'v',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 
 /***************************************************
  * setup
@@ -96,12 +95,15 @@ BUTTON_CREATE(v4b_4,13 ,'v',KEY_NONE,KEY_LEFT_SHIFT,KEY_LEFT_CTRL);
 void setup(){
   // declare led pin to be an output:
   pinMode(led, OUTPUT);
+  SerialUSB.begin(115200);  //BAUD RATE
+  while (!SerialUSB) {}
   digitalWrite(led,0); //Turn on the LED to indicate that we are running code, not bootloader
 
   ENCODER_SET_GPIO(back);
   ENCODER_SET_GPIO(layer);
   ENCODER_SET_GPIO(snap);
   ENCODER_SET_GPIO(select);
+
   
   BUTTON_SET_GPIO(v4b_1);
   BUTTON_SET_GPIO(v4b_2);
@@ -114,7 +116,7 @@ void setup(){
     cw = 2;
     ccw = 1;
   }
-
+  SerialUSB.println("hello from setup");
   // wait for 2 second before starting keyboard.
   delay(2000);
 
